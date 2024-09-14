@@ -23,6 +23,7 @@
             box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 400px;
+            box-sizing: border-box;
         }
 
         h2 {
@@ -106,6 +107,16 @@
             color: #aaa;
         }
 
+        /* Eye icon for password visibility toggle */
+        .input-group .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #aaa;
+        }
+
         .remember-forgot {
             display: flex;
             justify-content: space-between;
@@ -164,14 +175,47 @@
         .social-icons a.pinterest { background-color: #BD081C; }
         .social-icons a.linkedin { background-color: #0077B5; }
 
+        /* Fingerprint Sensor */
+        .fingerprint-login {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .fingerprint-box {
+            width: 50px;
+            height: 50px;
+            background-color: #007bff; /* Blue box */
+            border-radius: 8px; /* Slightly rounded corners */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .fingerprint-box i {
+            font-size: 24px;
+            color: white; /* White fingerprint icon */
+        }
+
         /* Responsive Design for Smaller Devices */
         @media (max-width: 600px) {
             .container {
                 padding: 20px;
+                max-width: 90%;
             }
 
             h2 {
                 font-size: 22px;
+            }
+
+            .terms-text {
+                font-size: 11px;
+            }
+
+            .toggle-buttons a {
+                font-size: 14px;
+                padding: 8px;
             }
 
             .submit-btn {
@@ -180,11 +224,25 @@
 
             .input-group input {
                 padding: 8px;
+                padding-left: 35px;
+            }
+
+            .input-group .input-group-icon {
+                left: 5px;
             }
 
             .social-icons a {
                 width: 35px;
                 height: 35px;
+            }
+
+            .fingerprint-box {
+                width: 40px;
+                height: 40px;
+            }
+
+            .fingerprint-box i {
+                font-size: 20px;
             }
         }
 
@@ -213,6 +271,7 @@
                 <div class="input-group">
                     <i class="fas fa-lock input-group-icon"></i>
                     <input type="password" id="password" name="password" placeholder="Password" required>
+                    <i class="fas fa-eye toggle-password" onclick="togglePasswordVisibility('password')"></i>
                 </div>
                 
                 <div class="remember-forgot">
@@ -235,51 +294,61 @@
         </div>
 
         <div id="registerForm">
-            <h2>Register</h2>
             <form>
                 <div class="input-group">
                     <i class="fas fa-user input-group-icon"></i>
-                    <input type="text" id="name" name="name" placeholder="Full Name" required>
+                    <input type="text" id="fullName" name="fullName" placeholder="Full Name" required>
                 </div>
                 <div class="input-group">
                     <i class="fas fa-envelope input-group-icon"></i>
-                    <input type="email" id="email" name="email" placeholder="Email Address" required>
+                    <input type="text" id="registerEmail" name="registerEmail" placeholder="Email Address" required>
                 </div>
                 <div class="input-group">
                     <i class="fas fa-lock input-group-icon"></i>
-                    <input type="password" id="regPassword" name="password" placeholder="Password" required>
+                    <input type="password" id="registerPassword" name="registerPassword" placeholder="Password" required>
+                    <i class="fas fa-eye toggle-password" onclick="togglePasswordVisibility('registerPassword')"></i>
                 </div>
-                <div class="input-group">
-                    <i class="fas fa-lock input-group-icon"></i>
-                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
-                </div>
-
+                
                 <button type="submit" class="submit-btn">Register</button>
             </form>
+        </div>
+
+        <div class="fingerprint-login">
+            <div class="fingerprint-box" onclick="handleFingerprintClick()">
+                <i class="fas fa-fingerprint"></i>
+            </div>
         </div>
     </div>
 
     <script>
         function showLogin(event) {
             event.preventDefault();
-            document.getElementById("loginForm").style.display = "block";
-            document.getElementById("registerForm").style.display = "none";
-            document.getElementById("formHeading").innerText = "Login";
-            document.getElementById("loginToggle").classList.add("active");
-            document.getElementById("registerToggle").classList.remove("active");
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('loginToggle').classList.add('active');
+            document.getElementById('registerToggle').classList.remove('active');
+            document.getElementById('formHeading').textContent = 'Login';
         }
 
         function showRegister(event) {
             event.preventDefault();
-            document.getElementById("loginForm").style.display = "none";
-            document.getElementById("registerForm").style.display = "block";
-            document.getElementById("formHeading").innerText = "Register";
-            document.getElementById("loginToggle").classList.remove("active");
-            document.getElementById("registerToggle").classList.add("active");
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+            document.getElementById('registerToggle').classList.add('active');
+            document.getElementById('loginToggle').classList.remove('active');
+            document.getElementById('formHeading').textContent = 'Register';
         }
 
-        // Default to login view on page load
-        document.addEventListener('DOMContentLoaded', showLogin);
+        function togglePasswordVisibility(id) {
+            const passwordField = document.getElementById(id);
+            const type = passwordField.type === 'password' ? 'text' : 'password';
+            passwordField.type = type;
+        }
+
+        function handleFingerprintClick() {
+            // Handle fingerprint login action here
+            alert('Fingerprint login clicked!');
+        }
     </script>
 </body>
 </html>
