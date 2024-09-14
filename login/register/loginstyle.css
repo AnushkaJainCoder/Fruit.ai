@@ -1,0 +1,199 @@
+body {
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    transition: color 0.3s;
+}
+
+.terms-text {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.terms-text a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.terms-text a:hover {
+    text-decoration: underline;
+}
+
+.toggle-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.toggle-buttons a {
+    text-decoration: none;
+    color: #555;
+    padding: 10px;
+    font-size: 16px;
+    margin: 0 15px;
+    position: relative;
+}
+
+.toggle-buttons a.active {
+    color: #007bff;
+}
+
+.toggle-buttons a.active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+    height: 2px;
+    background-color: #007bff;
+    border-radius: 3px;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-group input {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+    padding: 10px;
+    padding-left: 40px; /* Add space for icon */
+    font-size: 16px;
+    background-color: transparent;
+    box-sizing: border-box;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-bottom: 2px solid #007bff;
+}
+
+.input-group .input-group-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa;
+}
+
+/* Eye icon for password visibility toggle */
+.input-group .toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #aaa;
+}
+
+.remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #888;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+.remember-forgot input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+button.submit-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+    font-size: 16px;
+}
+
+.social-connect {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.social-connect p {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #888;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.social-icons a {
+    text-decoration: none;
+    width: 40px;
+    height: 40px;
+    background-color: #ddd;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+.social-icons a.facebook { background-color: #3b5998; }
+.social-icons a.instagram { background-color: #E4405F; }
+.social-icons a.pinterest { background-color: #BD081C; }
+.social-icons a.linkedin { background-color: #0077B5; }
+
+/* Fingerprint Sensor */
+.fingerprint-login {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.fingerprint-box {
+    width: 60px;
+    height: 60px;
+    border: 2px solid #007bff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.fingerprint-box i {
+    font-size: 24px;
+    color: #007bff;
+}
+
+.fingerprint-box:hover {
+    background-color: #007bff;
+    color: #fff;
+}
