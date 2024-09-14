@@ -4,12 +4,192 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fruit.Ai Chatbot</title>
-    <link rel="stylesheet" href="styles.css">
+   <style>
+    /* Chat container */
+    /* Chat container */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    max-width: 800px;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+/* Chat header */
+.chat-header {
+    padding: 15px;
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+/* Chat body */
+.chat-body {
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #f9f9f9;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Chat message styles */
+.chat-message {
+    display: inline-block;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border-radius: 15px;
+    font-size: 16px;
+    line-height: 1.5;
+    max-width: 100%; /* Set a max width for better readability */
+    word-wrap: break-word; /* Handle long words */
+    position: relative;
+    margin-left: 0; /* Ensure no extra left margin */
+    margin-right: 0; /* Ensure no extra right margin */
+}
+
+/* User message styles */
+.user-message {
+    background-color: #4CAF50;
+    color: white;
+    align-self: flex-end;
+    border-top-right-radius: 0;
+}
+
+/* Bot message styles */
+.bot-message {
+    background-color: #f1f1f1;
+    color: #333;
+    align-self: flex-start;
+    border-top-left-radius: 0;
+}
+
+/* Fruit list styling */
+.fruit-list {
+    padding-left:0 ;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.fruit-item {
+    display: flex;
+    /* flex-direction: column; */
+    align-items: center;
+    padding: 5px;
+    /* padding-right: 20px; */
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Adjusted width */
+    text-align: center;
+    /* column-gap: 20px; */
+    /* height: 250px; Adjusted height */
+}
+
+.fruit-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    
+    /* margin-bottom: 10px; */
+}
+
+.quantity-controls {
+    /* display: flex; */
+    align-items: center;
+    gap: 5px;
+    width: fit-content;
+    margin-left: 50px;
+    margin-right: 15px;
+}
+
+.quantity-controls button {
+    /* padding: 5px 10px; */
+    /* background-color: #4CAF50; */
+    color: rgb(248, 86, 10);
+    border:rgb(248, 86, 10);
+    border-radius: 15px;
+    cursor: pointer;
+    /* heig */
+}
+
+.quantity-controls .quantity {
+    font-size: 16px;
+    font-weight: bold;
+    width: 30px;
+    text-align: center;
+    color: red;
+}
+
+.price {
+    font-size: 10px;
+    /* font-weight: bold; */
+    margin-top: 10px;
+    color: red;
+}
+
+/* Chat footer */
+.chat-footer {
+    padding: 10px;
+    display: flex;
+    border-top: 1px solid #ddd;
+    background-color: white;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.chat-footer input {
+    flex-grow: 1;
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.chat-footer button {
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+#single-item-price{
+    font-size: 9px;
+    margin-top: 0px;
+    color: red;
+}
+#fruit-name{
+    font-size: 20px;
+    margin-bottom: 0;
+    margin-top: 0;
+    color: red;
+    
+}
+/* .fruit-info{
+    margin-left: 0px;
+} */
+</style>
+
 </head>
 <body>
     <div class="chat-container">
         <div class="chat-header">
-            <h1>Fruit.Ai Chat</h1>
+            Fruit.Ai Chat
         </div>
         <div class="chat-body" id="chatBody">
             <!-- Messages will be dynamically inserted here -->
@@ -19,6 +199,121 @@
             <button id="sendMessage">Send</button>
         </div>
     </div>
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatBody = document.getElementById('chatBody');
+            const userInput = document.getElementById('userInput');
+            const sendMessage = document.getElementById('sendMessage');
+
+            const fruits = [
+                { id: 1, name: 'Apple', image: 'Images/apple.png', pricePerUnit: 2.5 },
+                { id: 2, name: 'Grapes', image: 'Images/grapes.png', pricePerUnit: 1.2 },
+                { id: 3, name: 'Orange', image: 'Images/Tangerine.png', pricePerUnit: 3.0 }
+            ];
+
+            const selectedQuantities = {};
+
+            function addMessage(content, isUser = false) {
+                const message = document.createElement('div');
+                message.classList.add('chat-message');
+                message.classList.add(isUser ? 'user-message' : 'bot-message');
+                message.innerHTML = content;
+                chatBody.appendChild(message);
+                chatBody.scrollTop = chatBody.scrollHeight; // Scroll to the bottom of chat
+            }
+
+            function renderFruitList(fruits) {
+    return `
+        <ul class="fruit-list">
+            ${fruits.map(fruit => {
+                const quantity = selectedQuantities[fruit.id] || 0;
+                const totalPrice = quantity * fruit.pricePerUnit;
+                return `
+                    <li class="fruit-item">
+                        <div class="fruit-image">
+                            <img src="${fruit.image}" alt="${fruit.name}">
+                        </div>
+                        <div class="fruit-info">
+                            <h3 id= "fruit-name">${fruit.name}</h3>
+                            <p id ="single-item-price">$${fruit.pricePerUnit.toFixed(2)}</p>
+                            </div>
+                        <div class="quantity-controls">
+                            <button class="quantity-decrease" data-id="${fruit.id}">-</button>
+                            <span id="quantity-${fruit.id}" class="quantity">${quantity}</span>
+                            <button class="quantity-increase" data-id="${fruit.id}">+</button>
+                            <br>
+                             <p id="price-${fruit.id}" class="price">$${totalPrice.toFixed(2)}</p>
+
+                       
+                            </div>
+                    </li>
+                `;
+            }).join('')}
+        </ul>
+    `;
+}
+  
+function handleUserMessage(message) {
+                if (message.toLowerCase() === 'all list') {
+                    addMessage(renderFruitList(fruits), false);
+                } else {
+                    const fruit = fruits.find(f => f.name.toLowerCase() === message.toLowerCase());
+                    if (fruit) {
+                        addMessage(renderFruitList([fruit]), false);  // Only display the selected fruit
+                    } else {
+                        addMessage('Sorry, I don’t recognize that fruit.', false);
+                    }
+                }
+                addQuantityListeners();
+            }
+
+            function addQuantityListeners() {
+                document.querySelectorAll('.quantity-increase').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const id = button.getAttribute('data-id');
+                        updateFruitQuantity(id, 1);
+                    });
+                });
+
+                document.querySelectorAll('.quantity-decrease').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const id = button.getAttribute('data-id');
+                        updateFruitQuantity(id, -1);
+                    });
+                });
+            }
+            function updateFruitQuantity(id, change) {
+    if (!selectedQuantities[id]) {
+        selectedQuantities[id] = 0;
+    }
+    selectedQuantities[id] += change;
+    if (selectedQuantities[id] < 0) {
+        selectedQuantities[id] = 0;
+    }
+
+    const fruit = fruits.find(f => f.id == id);
+    const quantityElement = document.getElementById(`quantity-${id}`);
+    const priceElement = document.getElementById(`price-${id}`);
+    const totalPrice = selectedQuantities[id] * fruit.pricePerUnit;
+
+    quantityElement.textContent = selectedQuantities[id];
+    priceElement.textContent = `Total Price: $${totalPrice.toFixed(2)}`;
+}
+ sendMessage.addEventListener('click', () => {
+                const message = userInput.value.trim();
+                if (message) {
+                    addMessage(message, true);
+                    handleUserMessage(message);
+                    userInput.value = '';
+                }
+            });
+
+            userInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage.click();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
