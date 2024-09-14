@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2); /* Light to Light Blue Gradient */
     margin: 0;
     padding: 0;
     display: flex;
@@ -13,19 +13,19 @@ body {
     text-align: center;
     max-width: 800px;
     padding: 20px;
-    background-color: #fff;
+    /* background-color: #fff; */
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
     margin: 0;
-    font-size: 36px;
+    font-size: 2.5rem; /* Responsive font size */
     color: #007bff;
 }
 
 .slogan {
-    font-size: 20px;
+    font-size: 1.2rem; /* Responsive font size */
     color: #6c757d;
     margin-top: 10px;
 }
@@ -33,27 +33,85 @@ h1 {
 .info-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: center;
+    gap: 20px; /* Space between boxes */
     margin-top: 20px;
 }
 
 .info-box {
-    background-color: #007bff;
     color: #fff;
-    padding: 20px;
-    margin: 10px;
+    padding: 15px;
     border-radius: 10px;
-    width: 200px;
+    width: 100px; /* Adjust width for a smaller size */
+    height: 100px; /* Adjust height to be the same as width for a square shape */
     text-align: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.9rem; /* Adjust text size */
+}
+
+.info-box:hover {
+    transform: scale(1.05);
+}
+
+/* Gradient Backgrounds */
+.info-box:nth-child(1) {
+    background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Coral to Peach */
+}
+
+.info-box:nth-child(2) {
+    background: linear-gradient(135deg, #6a11cb, #2575fc); /* Purple to Blue */
+}
+
+.info-box:nth-child(3) {
+    background: linear-gradient(135deg, #f5af19, #f12711); /* Orange to Red */
+}
+
+.info-box:nth-child(4) {
+    background: linear-gradient(135deg, #00c6ff, #0072ff); /* Light Blue to Dark Blue */
 }
 
 .info-icon {
-    font-size: 24px;
+    font-size: 2rem; /* Adjust icon size */
     margin-bottom: 10px;
 }
 
 .info-box p {
     margin: 0;
-    font-size: 18px;
+}
+
+/* Responsive Design for Mobile Devices */
+@media (max-width: 600px) {
+    .homepage-container {
+        padding: 15px;
+        max-width: 90%;
+    }
+
+    h1 {
+        font-size: 2rem; /* Responsive font size */
+    }
+
+    .slogan {
+        font-size: 1rem; /* Responsive font size */
+    }
+
+    .info-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .info-box {
+        width: 120px; /* Smaller width for mobile */
+        height: 120px; /* Matching height for a square shape */
+        margin: 10px 0; /* Vertical margin for spacing */
+        font-size: 0.8rem; /* Smaller text size for mobile */
+    }
+
+    .info-icon {
+        font-size: 1.5rem; /* Smaller icon size for mobile */
+    }
 }
