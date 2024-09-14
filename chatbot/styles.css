@@ -1,0 +1,201 @@
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+/* Chat Container */
+.chat-container {
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+
+.user-message {
+    background: #007bff;
+    color: #fff;
+    align-self: flex-end;
+    text-align: right;
+}
+
+.bot-message {
+    background: #e1e1e1;
+    color: #000;
+    align-self: flex-start;
+    text-align: left;
+}
+/* Header */
+.chat-header {
+    background: #007bff;
+    color: #fff;
+    padding: 15px;
+    text-align: center;
+}
+
+/* Body */
+.chat-body {
+    padding: 15px;
+    overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 80%;
+}
+/* Fruit List */
+.fruit-list {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    border-right: 1px solid #ddd;
+}
+
+.fruit-card {
+    background: #fafafa;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    padding: 15px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.fruit-card:hover {
+    background: #f0f0f0;
+}
+
+.fruit-card img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.fruit-card h3 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+/* Fruit Detail */
+.fruit-detail {
+    flex: 2;
+    padding: 15px;
+    overflow-y: auto;
+}
+
+.fruit-detail img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.fruit-detail h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+}
+
+/* Footer */
+.chat-footer {
+    background: #007bff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+}
+
+#userInput {
+    width: 80%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+#sendMessage {
+    background: #28a745;
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+#sendMessage:hover {
+    background: #218838;
+}
+
+.chat-body {
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 80%;
+}
+
+.user-message {
+    background-color: #007bff;
+    color: white;
+    text-align: right;
+    align-self: flex-end;
+}
+
+.bot-message {
+    background-color: #e1e1e1;
+    color: black;
+    align-self: flex-start;
+}
+
+.fruit-card {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.fruit-card img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.quantity-control button {
+    padding: 5px;
+    font-size: 16px;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.price {
+    font-weight: bold;
+    margin-top: 10px;
+}
