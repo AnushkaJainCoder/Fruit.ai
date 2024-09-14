@@ -2,72 +2,167 @@
 <html>
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Simple Login Page</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+        }
 
-  <title>Simple Login Page</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      background-color: #f0f0f0;
-    }
+        .login-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
 
-    .login-container {
-      background-color: #fff;
-      padding: 30px;
-      border-radius: 5px;
-      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
 
-    input[type="text"],
-    input[type="password"] {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border: 1px solid #ccc;
-      border-radius: 3px;
-    }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+        }
 
-    button {
-      background-color: #4CAF50;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 3px;
-      cursor: pointer;
-    }
-</style>
+        h2 {
+            text-align: center; /* Centers the "Login" heading */
+        }
+
+        .terms-text {
+            font-size: 12px;
+            color: #888;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .input-group input {
+            flex: 1;
+        }
+
+        .input-group-addon {
+            margin-left: -30px;
+            color: #888;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            text-align: left; /* Aligns the labels to the left */
+            font-size: 14px;
+        }
+
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .remember-forgot input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        .social-connect {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .social-connect p {
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #888;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            width: 30px;
+            height: 30px;
+            background-color: #ddd;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+
+        .social-icons a.facebook { background-color: #3b5998; }
+        .social-icons a.instagram { background-color: #E4405F; }
+        .social-icons a.pinterest { background-color: #BD081C; }
+        .social-icons a.linkedin { background-color: #0077B5; }
+    </style>
 </head>
 <body>
-  <div class="login-container">
-    <h2>Login</h2>
-    <form id="loginForm">
-        <label for="emailId">Email ID:</label>
-        <div class="input-group">
-            <input type="text" id="emailId" name="emailId" placeholder="Email Address" required>
-            <span class="input-group-addon"><i class="fas fa-envelope"></i></span>
+    <div class="login-container">
+        <h2>Login</h2>
+        <p class="terms-text">By signing in you are agreeing to our Terms and privacy policy.</p>
 
-        </div>
-        
-        <label for="password">Password:</label>
-        <div class="input-group">
-            <input type="password" id="password" name="password" placeholder="Password" required>
-            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-        </div>
-        
-      <button type="submit">Login</button>
-    </form>
-  </div>
+        <form id="loginForm">
+            <label for="emailId">Email ID:</label>
+            <div class="input-group">
+                <input type="text" id="emailId" name="emailId" placeholder="Email Address" required>
+                <span class="input-group-addon"><i class="fas fa-envelope"></i></span>
+            </div>
+            
+            <label for="password">Password:</label>
+            <div class="input-group">
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+            </div>
+            
+            <div class="remember-forgot">
+                <label><input type="checkbox"> Remember Password</label>
+                <a href="#">Forgot Password?</a>
+            </div>
+            
+            <button type="submit">Login</button>
+        </form>
 
-  <script>
-    document.getElementById('loginForm').addEventListener('submit', function(event) {
-      event.preventDefault(); // Prevent actual form submission
-      alert("Redirecting to Homepage..."); 
-      // In a real application, you'd redirect using:
-      // window.location.href = "homepage.html";
-    });
-  </script>
+        <div class="social-connect">
+            <p>or connect with</p>
+            <div class="social-icons">
+                <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="pinterest"><i class="fab fa-pinterest-p"></i></a>
+                <a href="#" class="linkedin"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent actual form submission
+            alert("Redirecting to Homepage..."); 
+            // In a real application, you'd redirect using:
+            // window.location.href = "homepage.html";
+        });
+    </script>
 </body>
 </html>
