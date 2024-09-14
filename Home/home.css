@@ -119,3 +119,43 @@ h1 {
         font-size: 2rem; /* Smaller icon size for mobile */
     }
 }
+/* Popup Styles */
+.popup {
+    position: fixed;
+    bottom: 0; /* Position at the bottom of the page */
+    left: 50%;
+    transform: translateX(-50%);
+    background: #faf9f9;
+    color: #080808;
+    padding: 15px 20px;
+    border-radius: 18px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: none; /* Hidden by default */
+    z-index: 1000; /* Make sure it is above other content */
+    width: 100%; /* Adjust width to fit the screen */
+    max-width: 100%; /* Maximum width for the popup */
+    box-sizing: border-box; /* Ensure padding does not affect width */
+    overflow: auto; /* Handle overflow */
+    text-align: center;
+}
+
+.popup p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.close-popup {
+    background: #f44336; /* Red background for close button */
+    border: none;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+.close-popup:hover {
+    background: #d32f2f; /* Darker red on hover */
+}
+
