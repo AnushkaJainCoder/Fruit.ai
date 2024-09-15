@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text To Speech Converter</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="countries.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            filter: blur(5px); 
+            background-image: url('https://www.insureon.com/-/media/blog/posts/2021/photo_group-of-employees-working-on-project.png?h=370&iar=0&w=750&rev=3faabd3c0f7c4e11966caaa037fa4fc8');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -1;
+            height: 100vh;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .content {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            width: 80%;
+            max-width: 800px;
+            padding: 30px;
+            border-radius: 20px;
+            color: white;
+        }
+
+        p.head {
+            font-size: 32px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            border: none;
+            resize: none;
+            outline: none;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .file, select {
+            width: 100%;
+            padding: 10px 20px;
+            border-radius: 35px;
+            border: none;
+            outline: none;
+            background-repeat: no-repeat;
+            background-position: right 20px center;
+            margin-bottom: 20px;
+        }
+
+        .file {
+            background-image: none;
+        }
+
+        select {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Ic_arrow_drop_down_36px.svg/1200px-Ic_arrow_drop_down_36px.svg.png');
+        }
+
+        .btn, .bn, .b {
+            padding: 10px 30px;
+            background-color: rgb(205, 38, 66);
+            color: white;
+            border-radius: 35px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .fl {
+            display: flex;
+            gap: 10px;
+            justify-content: space-between;
+        }
+
+        .fl button {
+            flex: 1;
+        }
+
+        .fl select {
+            flex: 1;
+        }
+
+        /* Media queries for responsiveness */
+        @media (max-width: 768px) {
+            .content {
+                width: 90%;
+                padding: 20px;
+            }
+
+            p.head {
+                font-size: 28px;
+            }
+
+            .file, select {
+                font-size: 14px;
+            }
+
+            .fl {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .fl select {
+                background-position: right 10px center;
+            }
+
+            textarea {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            .btn, .bn, .b {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            p.head {
+                font-size: 24px;
+            }
+
+            textarea {
+                font-size: 12px;
+            }
+
+            .btn, .bn, .b {
+                padding: 8px 15px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <p class="head">Text To Speech Converter</p>
+        
+        <span style="font-size: 15px;">Select a file:</span>
+        <input type="file" class="file"><br>
+        <button class="btn">Extract</button>
+        <h2 class="mssg"></h2>
+
+        <div style="display: flex; gap: 10%; flex-wrap: wrap;">
+            <div style="flex: 1;">
+                <textarea class="from-text" placeholder="Write anything here..." rows="10"></textarea>
+                <div class="fl">
+                    <select name="" id="from-select" class="select"></select>
+                    <button class="b">
+                        <span class="fas fa-play"> Listen</span>
+                        <span class="fas fa-copy"> Copy</span>
+                    </button>
+                </div>
+            </div>
+            <div style="flex: 1;">
+                <textarea class="to-text" placeholder="Translation will appear here..." rows="10"></textarea>
+                <div class="fl">
+                    <select name="" id="to-select" class="select"></select>
+                    <button class="b">
+                        <span class="fas fa-play"> Listen</span>
+                        <span class="fas fa-copy"> Copy</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <button class="bn" style="margin-top: 20px;">Translate</button>
+    </div>
+
+    <script>
+        const fromText = document.querySelector(".from-text");
+        const toText = document.querySelector(".to-text");
+        const selectTag = document.querySelectorAll("select");
+        const translateBtn = document.querySelector(".bn");
+        const vol = document.querySelectorAll(".b");
+
+        selectTag.forEach((tag, id) => {
+            for (const country_code in countries) {
+                let selected = (id == 0 && country_code == "en-GB") ? "selected" : (id == 1 && country_code == "hi-IN") ? "selected" : "";
+                let option = `<option value="${country_code}"${selected}>${countries[country_code]}</option>`;
+                tag.insertAdjacentHTML("beforeend", option);
+            }
+        });
+
+        translateBtn.addEventListener("click", () => {
+            let text = fromText.value;
+            let translateFrom = selectTag[0].value;
+            let translateTo = selectTag[1].value;
+            if (!text) return;
+            toText.setAttribute("placeholder", "Translating...");
+            let apiUrl = `https://api.mymemory.translated.net/get?q=${text}&langpair=${translateFrom}|${translateTo}`;
+            fetch(apiUrl)
+                .then(res => res.json())
+                .then(data => {
+                    toText.value = data.responseData.translatedText;
+                    toText.setAttribute("placeholder", "Translation");
+                });
+        });
+
+        vol.forEach(icon => {
+            icon.addEventListener("click", ({target}) => {
+                if (target.classList.contains("fa-copy")) {
+                    if (target.parentElement.textContent.includes("from")) {
+                        navigator.clipboard.writeText(fromText.value);
+                    } else {
+                        navigator.clipboard.writeText(toText.value);
+                    }
+                } else {
+                    let utterance;
+                    if (target.parentElement.textContent.includes("from")) {
+                        utterance = new SpeechSynthesisUtterance(fromText.value);
+                        utterance.lang = selectTag[0].value;
+                    } else {
+                        utterance = new SpeechSynthesisUtterance(toText.value);
+                        utterance.lang = selectTag[1].value;
+                    }
+                    speechSynthesis.speak(utterance);
+                }
+            });
+        });
+
+        let api = "https://script.google.com/macros/s/AKfycbyPvqikftOmL4JDAg3MsCbEGL9RUHRElBUavskQkV8mLeEoe9bTF9LDuM78aHqJAQU8WQ/exec";
+        let mssg = document.querySelector(".mssg");
+        let file = document.querySelector(".file");
+        let btn = document.querySelector(".btn");
+
+        btn.addEventListener('click', () => {
+            mssg.innerHTML = `Loading...`;
+
+            let fr = new FileReader();
+            fr.readAsDataURL(file.files[0]);
+            fr.onload = () => {
+                let res = fr.result;
+                let b64 = res.split("base64,")[1];
+                fetch(api, {
+                    method: "POST",
+                    body: JSON.stringify({
+                        file: b64,
+                        type: file.files[0].type,
+                        name: file.files[0].name,
+                    })
+                }).then(res => res.text())
+                .then(data => {
+                    fromText.value = data;
+                    mssg.innerHTML = ``;
+                });
+            };
+        });
+    </script>
+</body>
+</html>
