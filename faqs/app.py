@@ -1,53 +1,39 @@
-from flask import Flask, request, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
-app = Flask(__name__)
 
-# app = Flask(__name__)
+app = Flask(__name__)
 CORS(app)
 
-# Sample data (for now we'll store FAQs in memory, later we can connect to a database)
 faqs = [
-    {'id': 1, 'question': 'What is an apple?', 'answer': 'An apple is a type of fruit.'},
-    {'id': 2, 'question': 'What is a banana?', 'answer': 'A banana is a yellow fruit.'},
+    {"id": 1, "question": "What is your name?", "answer": "John Doe"},
+    # other FAQs
 ]
 
-# Route to fetch all FAQs
 @app.route('/faqs', methods=['GET'])
 def get_faqs():
     return jsonify(faqs)
 
-# Route to fetch a single FAQ by ID
-@app.route('/faqs/<int:id>', methods=['GET'])
-def get_faq(id):
-    faq = next((faq for faq in faqs if faq['id'] == id), None)
-    if faq is None:
-        return jsonify({'error': 'FAQ not found'}), 404
-    return jsonify(faq)
-
-# Route to create a new FAQ
 @app.route('/faqs', methods=['POST'])
-def create_faq():
-    new_faq = request.get_json()
+def add_faq():
+    new_faq = request.json
     new_faq['id'] = len(faqs) + 1
     faqs.append(new_faq)
     return jsonify(new_faq), 201
 
-# Route to update a FAQ by ID
-@app.route('/faqs/<int:id>', methods=['PUT'])
-def update_faq(id):
-    faq = next((faq for faq in faqs if faq['id'] == id), None)
-    if faq is None:
-        return jsonify({'error': 'FAQ not found'}), 404
-    updated_data = request.get_json()
-    faq.update(updated_data)
-    return jsonify(faq)
+@app.route('/faqs/<int:faq_id>', methods=['PUT'])
+def update_faq(faq_id):
+    updated_faq = request.json
+    for faq in faqs:
+        if faq['id'] == faq_id:
+            faq.update(updated_faq)
+            return jsonify(faq)
+    return jsonify({"error": "FAQ not found"}), 404
 
-# Route to delete a FAQ by ID
-@app.route('/faqs/<int:id>', methods=['DELETE'])
-def delete_faq(id):
+@app.route('/faqs/<int:faq_id>', methods=['DELETE'])
+def delete_faq(faq_id):
     global faqs
-    faqs = [faq for faq in faqs if faq['id'] != id]
-    return jsonify({'message': 'FAQ deleted successfully'})
+    faqs = [faq for faq in faqs if faq['id'] != faq_id]
+    return '', 204
 
 if __name__ == '__main__':
     app.run(debug=True)
