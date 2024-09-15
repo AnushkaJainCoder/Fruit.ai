@@ -1,6 +1,9 @@
 from flask import Flask, request, jsonify
-
+from flask_cors import CORS
 app = Flask(__name__)
+
+# app = Flask(__name__)
+CORS(app)
 
 # Sample data (for now we'll store FAQs in memory, later we can connect to a database)
 faqs = [

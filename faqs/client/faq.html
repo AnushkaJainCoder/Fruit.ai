@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQs Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <h1>FAQs</h1>
+        <button id="addFaqBtn">+</button>
+    </nav>
+
+    <!-- FAQ List -->
+    <div class="faq-list">
+        <ul id="faqsContainer">
+            <!-- FAQ items will be dynamically added here -->
+        </ul>
+    </div>
+
+    <!-- Pop-up Form -->
+    <div id="faqModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add a New FAQ</h2>
+            <form id="faqForm">
+                <label for="question">Question:</label>
+                <input type="text" id="question" name="question" required>
+                
+                <label for="answer">Answer:</label>
+                <textarea id="answer" name="answer" rows="4" required></textarea>
+                
+                <button type="submit">Add FAQ</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
