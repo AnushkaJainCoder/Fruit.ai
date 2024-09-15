@@ -21,8 +21,9 @@ function renderFaqs(faqs) {
             <p><strong>ID:</strong> ${faq.id}</p>
             <p><strong>Q:</strong> ${faq.question}</p>
             <p><strong>A:</strong> ${faq.answer}</p>
-            <button class="editBtn" data-id="${faq.id}">Edit</button>
-            <button class="deleteBtn" data-id="${faq.id}">Delete</button>
+            <button class="editBtn"  data-id="${faq.id}"><i class="fas fa-edit"></i></button>
+            <button class="deleteBtn" data-id="${faq.id}"><i class="fas fa-trash"></i></button>
+            
         `;
         faqsContainer.appendChild(faqItem);
     });

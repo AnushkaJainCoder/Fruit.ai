@@ -6,13 +6,14 @@ body {
     padding: 0;
 }
 
+/* Container for layout */
 .container {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
     background-color: white;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* Navigation Bar */
@@ -23,7 +24,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 nav h1 {
@@ -61,36 +62,42 @@ nav button:hover {
     background-color: #ffffff;
     padding: 20px;
     margin-bottom: 15px;
-    border-radius: 8px;
+    border-radius: 12px;
     border: 1px solid #e1e1e1;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .faq-list li:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .faq-list li p {
     margin: 0 0 10px;
     font-size: 16px;
-    line-height: 1.5;
+    line-height: 1.6;
+}
+
+.faq-list p strong {
+    color: #333;
 }
 
 .faq-list button {
-    background-color: #007bff;
+    /* background-color: #007bff; */
     color: white;
     border: none;
     padding: 8px 12px;
     border-radius: 4px;
     font-size: 14px;
     cursor: pointer;
-    margin-right: 5px;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.3s;
+    margin: 5px;
 }
 
 .faq-list button:hover {
     background-color: #0056b3;
+    transform: scale(1.05);
 }
 
 /* Modal Styles */
@@ -109,10 +116,10 @@ nav button:hover {
 .modal-content {
     background-color: white;
     padding: 20px;
-    border-radius: 8px;
+    border-radius: 12px;
     width: 90%;
-    max-width: 500px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
 .close {
@@ -134,9 +141,9 @@ form label {
 
 form input, form textarea {
     width: calc(100% - 20px);
-    padding: 10px;
+    padding: 12px;
     margin-bottom: 15px;
-    border-radius: 4px;
+    border-radius: 8px;
     border: 1px solid #ccc;
     font-size: 14px;
 }
@@ -152,7 +159,7 @@ button[type="submit"] {
     border: none;
     padding: 12px;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 8px;
     font-size: 16px;
     transition: background-color 0.3s;
 }
@@ -161,8 +168,64 @@ button[type="submit"]:hover {
     background-color: #0056b3;
 }
 
+/* Responsive Design */
 @media (max-width: 600px) {
     .modal-content {
         width: 95%;
     }
+}
+
+
+/* Styles for the actions inside the FAQ list items */
+.faq-list .actions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.faq-list .actions button {
+    /* background-color: #0 07bff; Default button color */
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    margin: 0 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.faq-list .actions .editBtn {
+    background-color: #ffc107;
+}
+
+.faq-list .actions .deleteBtn {
+    background-color: #dc3545;
+}
+
+.faq-list .actions button:hover {
+    background-color: #0056b3;
+    transform: scale(1.1);
+}
+
+.faq-list .actions .editBtn:hover {
+    background-color: #e0a800;
+}
+
+.faq-list .actions .deleteBtn:hover {
+    background-color: #c82333;
+}
+
+/* Ensure Font Awesome icons are centered properly */
+.faq-list .actions i {
+    font-size: 14px;
+}
+.fa-trash{
+    color: red;;
+}
+.fa-edit{
+    color: #ffc107;;
 }
