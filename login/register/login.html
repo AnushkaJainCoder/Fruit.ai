@@ -17,7 +17,7 @@
         </div>
 
         <div id="loginForm">
-            <form>
+            <form id="loginForm" onsubmit="return handleLogin(event)">
                 <div class="input-group">
                     <i class="fas fa-envelope input-group-icon"></i>
                     <input type="text" id="emailId" name="emailId" placeholder="Email Address" required>
@@ -48,7 +48,7 @@
         </div>
 
         <div id="registerForm" style="display: none;">
-            <form>
+            <form onsubmit="return handleRegister(event)">
                 <div class="input-group">
                     <i class="fas fa-user input-group-icon"></i>
                     <input type="text" id="fullName" name="fullName" placeholder="Full Name" required>
@@ -75,6 +75,12 @@
     </div>
 
     <script>
+        // Dummy credentials
+        const dummyUser = {
+            email: 'user@example.com',
+            password: 'password123'
+        };
+
         function initializePage() {
             showLogin(); // Show login by default
         }
@@ -101,6 +107,31 @@
             const passwordField = document.getElementById(id);
             const type = passwordField.type === 'password' ? 'text' : 'password';
             passwordField.type = type;
+        }
+
+        function handleLogin(event) {
+            event.preventDefault(); // Prevent form submission
+
+            const email = document.getElementById('emailId').value;
+            const password = document.getElementById('password').value;
+
+            if (email === dummyUser.email && password === dummyUser.password) {
+                // Redirect to homepage
+                // <a href="C:\Users\91730\OneDrive\Projects\Fruits.ai\Home\home.html" class="back-button"><i class="fas fa-arrow-left"></i>Back</a>
+    
+                window.location.href = '../../Home/home.html'; 
+
+                // Replace with your actual homepage URL
+            } else {
+                alert('Invalid credentials. Please try again.');
+            }
+            return false; // Prevent form submission
+        }
+
+        function handleRegister(event) {
+            event.preventDefault(); // Prevent form submission
+            alert('Registration functionality not implemented.');
+            return false; // Prevent form submission
         }
 
         function handleFingerprintClick() {
