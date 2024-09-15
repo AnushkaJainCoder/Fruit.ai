@@ -24,7 +24,7 @@
             right: 0;
             bottom: 0;
             filter: blur(5px); 
-            background: linear-gradient(135deg, rgba(36, 198, 220, 0.8), rgba(81, 74, 157, 0.8)), url('https://www.insureon.com/-/media/blog/posts/2021/photo_group-of-employees-working-on-project.png?h=370&iar=0&w=750&rev=3faabd3c0f7c4e11966caaa037fa4fc8') no-repeat center center / cover;
+            background: linear-gradient(135deg, rgba(36, 198, 220, 0.8), rgba(81, 74, 157, 0.8)), url('https://www.insureon.com/-/media/blog/posts/2021/photo_group-of_employees_working_on_project.png?h=370&iar=0&w=750&rev=3faabd3c0f7c4e11966caaa037fa4fc8') no-repeat center center / cover;
             z-index: -1;
             height: 100vh;
         }
@@ -48,6 +48,30 @@
             padding: 40px 30px;
             color: white;
             text-align: center;
+            position: relative; /* Ensure .content can be positioned */
+        }
+
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 70%;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: rgb(5, 5, 5);
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .back-button i {
+            margin-right: 8px;
         }
 
         .content h1 {
@@ -141,6 +165,9 @@
             border-radius: 35px;
             display: block;
             margin: 20px auto 0;
+            text-decoration: none
+            
+            ;
         }
 
         .bn:hover {
@@ -157,6 +184,7 @@
             .content {
                 width: 90%;
                 padding: 20px;
+                margin-top: 40px;
             }
 
             .file, select {
@@ -196,7 +224,10 @@
     </style>
 </head>
 <body>
+    <a href="C:\Users\91730\OneDrive\Projects\Fruits.ai\Home\home.html" class="back-button"><i class="fas fa-arrow-left"></i>Back</a>
+          
     <div class="content">
+             
         <h1>Text Extraction, Translation, and Speech Converter</h1>
         <p>Extract text from documents, translate it into different languages, and convert it into speech with a single click.</p>
         
@@ -205,7 +236,7 @@
         <button class="btn">Extract</button>
         <h2 class="mssg"></h2>
 
-        <div style="display: flex;  gap: 20px;">
+        <div style="display: flex; gap: 20px;">
             <div>
                 <textarea class="from-text" placeholder="Write something here..." cols="50" rows="10"></textarea>
                 <div style="display: flex; gap: 20px; flex-direction: column;">
@@ -228,7 +259,7 @@
                 </div>
             </div>
         </div>
-        <button class="bn">Translate</button>
+        <button class="bn" style="text-decoration: none;">Translate</button>
     </div>
     <script>
         const fromText = document.querySelector(".from-text");
@@ -240,43 +271,48 @@
         selectTag.forEach((tag, id) => {
             for (const country_code in countries) {
                 let selected = "";
-                if (id === 0 && country_code === "en-GB") {
-                    selected = "selected";
-                } else if (id === 1 && country_code === "hi-IN") {
+                if (id === 0 && country_code === "en") {
                     selected = "selected";
                 }
-                let option = `<option value="${country_code}"${selected}>${countries[country_code]}</option>`;
-                tag.insertAdjacentHTML("beforeend", option);
+                if (id === 1 && country_code === "fr") {
+                    selected = "selected";
+                }
+                tag.insertAdjacentHTML(
+                    "beforeend",
+                    `<option value="${country_code}" ${selected}>${countries[country_code]}</option>`
+                );
             }
         });
 
         translatebtn.addEventListener("click", () => {
-            let text = fromText.value;
-            translateFrom = selectTag[0].value;
-            translateTo = selectTag[1].value;
-            if (!text) return;
-            toText.setAttribute("placeholder", "Translating...");
-            let apiurl = `https://api.mymemory.translated.net/get?q=${text}&langpair=${translateFrom}|${translateTo}`;
-            fetch(apiurl).then(res => res.json()).then(data => {
-                toText.value = data.responseData.translatedText;
-                toText.setAttribute("placeholder", "Translation");
-            });
+            const fromLang = selectTag[0].value;
+            const toLang = selectTag[1].value;
+            const text = fromText.value;
+            if (!text) {
+                alert("Please enter text to translate.");
+                return;
+            }
+            toText.value = "Translating...";
+            const apiUrl = `https://api.mymemory.translated.net/get?q=${text}&langpair=${fromLang}|${toLang}`;
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    toText.value = data.responseData.translatedText;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
         });
 
-        vol.forEach(icon => {
-            icon.addEventListener("click", ({target}) => {
-                let utter;
-                if (target.classList.contains("fa-copy")) {
-                    navigator.clipboard.writeText(
-                        target.id === "from" ? fromText.value : toText.value
-                    );
-                } else {
-                    let text = target.id === "from" ? fromText.value : toText.value;
-                    utter = new SpeechSynthesisUtterance(text);
-                    utter.lang = selectTag[target.id === "from" ? 0 : 1].value;
-                    speechSynthesis.speak(utter);
-                }
+        vol.forEach((volButton) => {
+            volButton.addEventListener("click", () => {
+                let text = volButton.querySelector("span").innerText;
+                let lang = volButton.querySelector("span").id;
+                let url = `https://api.voicerss.org/?key=YOUR_API_KEY&hl=${lang}&src=${text}`;
+                let audio = new Audio(url);
+                audio.play();
             });
         });
-    </script></body>
+    </script>
+</body>
 </html>
