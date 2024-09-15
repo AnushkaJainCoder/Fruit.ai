@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="loginstyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Responsive Login/Register Page</title>
+</head>
+<body onload="initializePage()">
+    <div class="container">
+        <h2 id="formHeading">Login</h2>
+        <p class="terms-text">By signing in you are agreeing to our <a href="#">Terms</a> and <a href="#">privacy policy</a>.</p>
+
+        <div class="toggle-buttons">
+            <a id="loginToggle" class="active" href="#" onclick="showLogin(event)">Login</a>
+            <a id="registerToggle" href="#" onclick="showRegister(event)">Register</a>
+        </div>
+
+        <div id="loginForm">
+            <form id="loginForm" onsubmit="return handleLogin(event)">
+                <div class="input-group">
+                    <i class="fas fa-envelope input-group-icon"></i>
+                    <input type="text" id="emailId" name="emailId" placeholder="Email Address" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock input-group-icon"></i>
+                    <input type="password" id="password" name="password" placeholder="Password" required>
+                    <i class="fas fa-eye toggle-password" onclick="togglePasswordVisibility('password')"></i>
+                </div>
+                
+                <div class="remember-forgot">
+                    <label><input type="checkbox"> Remember Password</label>
+                    <a href="#">Forgot Password?</a>
+                </div>
+                
+                <button type="submit" class="submit-btn">Login</button>
+            </form>
+
+            <div class="social-connect">
+                <p>or connect with</p>
+                <div class="social-icons">
+                    <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="pinterest"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="#" class="linkedin"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div id="registerForm" style="display: none;">
+            <form onsubmit="return handleRegister(event)">
+                <div class="input-group">
+                    <i class="fas fa-user input-group-icon"></i>
+                    <input type="text" id="fullName" name="fullName" placeholder="Full Name" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-envelope input-group-icon"></i>
+                    <input type="text" id="registerEmail" name="registerEmail" placeholder="Email Address" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock input-group-icon"></i>
+                    <input type="password" id="registerPassword" name="registerPassword" placeholder="Password" required>
+                    <i class="fas fa-eye toggle-password" onclick="togglePasswordVisibility('registerPassword')"></i>
+                </div>
+                
+                <button type="submit" class="submit-btn">Register</button>
+            </form>
+        </div>
+
+        <div class="fingerprint-login">
+            <div class="fingerprint-box" onclick="handleFingerprintClick()">
+                <i class="fas fa-fingerprint"></i>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dummy credentials
+        const dummyUser = {
+            email: 'anushkajain@example.com',
+            password: 'anushkajainInGoogle'
+        };
+
+        function initializePage() {
+            showLogin(); // Show login by default
+        }
+
+        function showLogin(event) {
+            if (event) event.preventDefault();
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('loginToggle').classList.add('active');
+            document.getElementById('registerToggle').classList.remove('active');
+            document.getElementById('formHeading').textContent = 'Login';
+        }
+
+        function showRegister(event) {
+            if (event) event.preventDefault();
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+            document.getElementById('registerToggle').classList.add('active');
+            document.getElementById('loginToggle').classList.remove('active');
+            document.getElementById('formHeading').textContent = 'Register';
+        }
+
+        function togglePasswordVisibility(id) {
+            const passwordField = document.getElementById(id);
+            const type = passwordField.type === 'password' ? 'text' : 'password';
+            passwordField.type = type;
+        }
+
+        function handleLogin(event) {
+            event.preventDefault(); // Prevent form submission
+
+            const email = document.getElementById('emailId').value;
+            const password = document.getElementById('password').value;
+
+            if (email === dummyUser.email && password === dummyUser.password) {
+                // Redirect to homepage
+                // <a href="C:\Users\91730\OneDrive\Projects\Fruits.ai\Home\home.html" class="back-button"><i class="fas fa-arrow-left"></i>Back</a>
+    
+                window.location.href = 'Home/home.html'; 
+
+                // Replace with your actual homepage URL
+            } else {
+                alert('Invalid credentials. Please try again.');
+            }
+            return false; // Prevent form submission
+        }
+
+        function handleRegister(event) {
+            event.preventDefault(); // Prevent form submission
+            alert('Registration functionality not implemented.');
+            return false; // Prevent form submission
+        }
+
+        function handleFingerprintClick() {
+            // Handle fingerprint login action here
+            alert('Fingerprint login clicked!');
+        }
+    </script>
+</body>
+</html>
