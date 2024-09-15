@@ -1,52 +1,49 @@
 /* Global Styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, rgba(36, 198, 220, 0.8), rgba(81, 74, 157, 0.8)), url('https://www.insureon.com/-/media/blog/posts/2021/photo_group-of_employees_working_on_project.png?h=370&iar=0&w=750&rev=3faabd3c0f7c4e11966caaa037fa4fc8') no-repeat center center / cover;
     margin: 0;
     padding: 0;
 }
 
-/* Container for layout */
-.container {
-    max-width: 900px;
-    margin: 0 auto;
-    background-color: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-}
-
 /* Navigation Bar */
 nav {
-    background-color: #346da9; /* Blue color for the navigation bar */
+    background-color: #004d99; /* Darker blue for the navigation bar */
     color: white;
     padding: 15px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-bottom: 2px solid #0056b3; /* Darker border for more emphasis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-bottom: 2px solid #003366; /* Even darker border */
 }
 
 nav h1 {
     margin: 0;
-    font-size: 24px;
+    font-size: 26px;
+    font-weight: bold;
 }
 
 nav button {
-    /* background-color: #28a745; */
-    color: rgb(225, 226, 228);
+    color: #ffffff;
     border: none;
     padding: 12px;
-    border-radius: 20%;
-    font-size: 37px;
-    background-color: #346da9;
+    border-radius: 50%;
+    font-size: 30px;
+    background-color: #0056b3;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 nav button:hover {
-    background-color: #218838;
+    background-color: #003d7a;
+    transform: scale(1.1);
+}
+
+nav .back-button {
+    font-size: 24px;
+    color: #ffffff;
+    text-decoration: none;
 }
 
 /* FAQ List */
@@ -61,23 +58,23 @@ nav button:hover {
 }
 
 .faq-list li {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: #ffffff;
     padding: 20px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     border-radius: 12px;
     border: 1px solid #e1e1e1;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    position: relative;
     transition: transform 0.3s, box-shadow 0.3s;
-    position: relative; /* Needed for positioning action buttons */
 }
 
 .faq-list li:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
 }
 
 .faq-list li p {
-    margin: 0 0 10px;
+    margin: 0 0 12px;
     font-size: 16px;
     line-height: 1.6;
 }
@@ -89,15 +86,14 @@ nav button:hover {
 .faq-list button {
     color: white;
     border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
+    padding: 10px;
+    border-radius: 8px;
     font-size: 14px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
 }
 
 .faq-list button:hover {
-    background-color: #0056b3;
     transform: scale(1.05);
 }
 
@@ -109,23 +105,29 @@ nav button:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.6);
     justify-content: center;
     align-items: center;
 }
 
 .modal-content {
-    background-color: white;
-    padding: 20px;
+    background-color: #f9f9f9;
+    padding: 30px;
     border-radius: 12px;
     width: 90%;
     max-width: 600px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .close {
     float: right;
-    font-size: 24px;
+    font-size: 28px;
     cursor: pointer;
     color: #333;
 }
@@ -135,18 +137,18 @@ nav button:hover {
 }
 
 form label {
-    font-size: 16px;
-    margin-bottom: 5px;
+    font-size: 18px;
+    margin-bottom: 8px;
     display: block;
 }
 
 form input, form textarea {
-    width: calc(100% - 20px);
+    width: calc(100% - 24px);
     padding: 12px;
     margin-bottom: 15px;
     border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 14px;
+    border: 1px solid #ddd;
+    font-size: 16px;
 }
 
 form textarea {
@@ -158,10 +160,10 @@ button[type="submit"] {
     background-color: #007bff;
     color: white;
     border: none;
-    padding: 12px;
+    padding: 15px;
     cursor: pointer;
     border-radius: 8px;
-    font-size: 16px;
+    font-size: 18px;
     transition: background-color 0.3s;
 }
 
@@ -182,13 +184,13 @@ button[type="submit"]:hover {
     top: 10px;
     right: 10px;
     display: flex;
-    gap: 5px;
+    gap: 8px;
 }
 
 .faq-list .actions button {
     color: white;
     border: none;
-    padding: 8px;
+    padding: 10px;
     border-radius: 50%;
     font-size: 16px;
     cursor: pointer;
@@ -199,11 +201,11 @@ button[type="submit"]:hover {
 }
 
 .faq-list .actions .editBtn {
-    /* background-color: #ffc107; */
+    background-color: #d3bd78;
 }
 
 .faq-list .actions .deleteBtn {
-    /* background-color: #dc3545; */
+    background-color: #dc3545;
 }
 
 .faq-list .actions button:hover {
@@ -211,22 +213,14 @@ button[type="submit"]:hover {
 }
 
 .faq-list .actions .editBtn:hover {
-    /* background-color: #e0a800; */
+    background-color: #e0a800;
 }
 
 .faq-list .actions .deleteBtn:hover {
-    /* background-color: #c82333; */
+    background-color: #c82333;
 }
 
 /* Ensure Font Awesome icons are centered properly */
 .faq-list .actions i {
-    font-size: 14px;
-}
-
-.fa-trash {
-    color: #dc3545; /* Red color for delete icon */
-}
-
-.fa-edit {
-    color: #ffc107; /* Yellow color for edit icon */
+    font-size: 18px;
 }

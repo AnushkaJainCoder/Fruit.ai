@@ -15,15 +15,17 @@ function renderFaqs(faqs) {
     const faqsContainer = document.getElementById('faqsContainer');
     faqsContainer.innerHTML = ''; // Clear existing content
 
-    faqs.forEach((faq, index) => {
+    faqs.forEach(faq => {
         const faqItem = document.createElement('li');
         faqItem.innerHTML = `
             <div class="actions">
-                <button class="editBtn" data-index="${index}"><i class="fas fa-edit"></i></button>
-                <button class="deleteBtn" data-index="${index}"><i class="fas fa-trash"></i></button>
+                <button class="editBtn" data-id="${faq.id}"><i class="fas fa-edit"></i></button>
+                <button class="deleteBtn" data-id="${faq.id}"><i class="fas fa-trash"></i></button>
             </div>
-            <p><strong>Q${index + 1}:</strong> ${faq.question}</p>
+            <p><strong>Q:</strong> ${faq.question}</p>
             <p><strong>A:</strong> ${faq.answer}</p>
+            <!-- Hidden input field to store FAQ ID -->
+            <input type="hidden" class="faqId" value="${faq.id}">
         `;
         faqsContainer.appendChild(faqItem);
     });
@@ -32,16 +34,16 @@ function renderFaqs(faqs) {
 // Function to handle Edit FAQ
 function handleEdit(event) {
     if (event.target.classList.contains('editBtn') || event.target.closest('.editBtn')) {
-        const index = event.target.closest('.editBtn').getAttribute('data-index');
+        const faqId = event.target.closest('.editBtn').getAttribute('data-id');
         const faqItem = event.target.closest('li');
-        const question = faqItem.querySelector('p:nth-of-type(1)').textContent.replace(/^Q\d+:/, '').trim();
+        const question = faqItem.querySelector('p:nth-of-type(1)').textContent.replace('Q:', '').trim();
         const answer = faqItem.querySelector('p:nth-of-type(2)').textContent.replace('A:', '').trim();
 
         document.getElementById('question').value = question;
         document.getElementById('answer').value = answer;
 
         const faqForm = document.getElementById('faqForm');
-        faqForm.dataset.index = index; // Store index for editing
+        faqForm.dataset.id = faqId; // Store ID for editing
 
         modal.style.display = 'flex'; // Show modal for editing
     }
@@ -50,18 +52,15 @@ function handleEdit(event) {
 // Function to handle Delete FAQ
 async function handleDelete(event) {
     if (event.target.classList.contains('deleteBtn') || event.target.closest('.deleteBtn')) {
-        const index = event.target.closest('.deleteBtn').getAttribute('data-index');
-        const faqs = await fetchFaqs();
-        const faqId = faqs[index].id; // Retrieve the ID of the FAQ to delete
-
+        const faqId = event.target.closest('.deleteBtn').getAttribute('data-id');
         const response = await fetch(`http://127.0.0.1:5000/faqs/${faqId}`, {
             method: 'DELETE',
         });
 
         if (response.ok) {
             // Fetch and re-render FAQs after deleting
-            const updatedFaqs = await fetchFaqs();
-            renderFaqs(updatedFaqs);
+            const faqs = await fetchFaqs();
+            renderFaqs(faqs);
         } else {
             console.error('Failed to delete FAQ:', response.statusText);
         }
@@ -71,10 +70,9 @@ async function handleDelete(event) {
 // Function to submit a new FAQ or update an existing one
 async function submitFaq(faq) {
     const faqForm = document.getElementById('faqForm');
-    const index = faqForm.dataset.index;
-    const method = index ? 'PUT' : 'POST';
-    const url = index 
-        ? `http://127.0.0.1:5000/faqs/${index}` 
+    const method = faqForm.dataset.id ? 'PUT' : 'POST';
+    const url = faqForm.dataset.id 
+        ? `http://127.0.0.1:5000/faqs/${faqForm.dataset.id}` 
         : 'http://127.0.0.1:5000/faqs';
 
     const response = await fetch(url, {
@@ -90,7 +88,7 @@ async function submitFaq(faq) {
         const faqs = await fetchFaqs();
         renderFaqs(faqs);
         document.getElementById('faqForm').reset(); // Clear form
-        delete document.getElementById('faqForm').dataset.index; // Remove index for new additions
+        delete document.getElementById('faqForm').dataset.id; // Remove ID for new additions
         modal.style.display = 'none'; // Close modal
     } else {
         console.error('Failed to submit FAQ:', response.statusText);
