@@ -1,7 +1,7 @@
 /* Global Styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background: linear-gradient(135deg, rgba(36, 198, 220, 0.8), rgba(81, 74, 157, 0.8)), url('https://www.insureon.com/-/media/blog/posts/2021/photo_group-of_employees_working_on_project.png?h=370&iar=0&w=750&rev=3faabd3c0f7c4e11966caaa037fa4fc8') no-repeat center center / cover;
     margin: 0;
     padding: 0;
 }
@@ -18,13 +18,14 @@ body {
 
 /* Navigation Bar */
 nav {
-    background-color: #007bff; /* Blue color for the navigation bar */
+    background-color: #346da9; /* Blue color for the navigation bar */
     color: white;
     padding: 15px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-bottom: 2px solid #0056b3; /* Darker border for more emphasis */
 }
 
 nav h1 {
@@ -33,12 +34,13 @@ nav h1 {
 }
 
 nav button {
-    background-color: #28a745;
-    color: white;
+    /* background-color: #28a745; */
+    color: rgb(225, 226, 228);
     border: none;
     padding: 12px;
-    border-radius: 50%;
-    font-size: 20px;
+    border-radius: 20%;
+    font-size: 37px;
+    background-color: #346da9;
     cursor: pointer;
     transition: background-color 0.3s;
 }
@@ -59,13 +61,14 @@ nav button:hover {
 }
 
 .faq-list li {
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.2);
     padding: 20px;
     margin-bottom: 15px;
     border-radius: 12px;
     border: 1px solid #e1e1e1;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s, box-shadow 0.3s;
+    position: relative; /* Needed for positioning action buttons */
 }
 
 .faq-list li:hover {
@@ -84,7 +87,6 @@ nav button:hover {
 }
 
 .faq-list button {
-    /* background-color: #007bff; */
     color: white;
     border: none;
     padding: 8px 12px;
@@ -92,7 +94,6 @@ nav button:hover {
     font-size: 14px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
-    margin: 5px;
 }
 
 .faq-list button:hover {
@@ -175,16 +176,16 @@ button[type="submit"]:hover {
     }
 }
 
-
 /* Styles for the actions inside the FAQ list items */
 .faq-list .actions {
     position: absolute;
     top: 10px;
     right: 10px;
+    display: flex;
+    gap: 5px;
 }
 
 .faq-list .actions button {
-    /* background-color: #0 07bff; Default button color */
     color: white;
     border: none;
     padding: 8px;
@@ -192,40 +193,40 @@ button[type="submit"]:hover {
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
-    margin: 0 5px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .faq-list .actions .editBtn {
-    background-color: #ffc107;
+    /* background-color: #ffc107; */
 }
 
 .faq-list .actions .deleteBtn {
-    background-color: #dc3545;
+    /* background-color: #dc3545; */
 }
 
 .faq-list .actions button:hover {
-    background-color: #0056b3;
     transform: scale(1.1);
 }
 
 .faq-list .actions .editBtn:hover {
-    background-color: #e0a800;
+    /* background-color: #e0a800; */
 }
 
 .faq-list .actions .deleteBtn:hover {
-    background-color: #c82333;
+    /* background-color: #c82333; */
 }
 
 /* Ensure Font Awesome icons are centered properly */
 .faq-list .actions i {
     font-size: 14px;
 }
-.fa-trash{
-    color: red;;
+
+.fa-trash {
+    color: #dc3545; /* Red color for delete icon */
 }
-.fa-edit{
-    color: #ffc107;;
+
+.fa-edit {
+    color: #ffc107; /* Yellow color for edit icon */
 }
