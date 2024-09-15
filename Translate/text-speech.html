@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text To Speech Converter</title>
+    <title>Text Extraction, Translation, and Speech Converter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="countries.js"></script>
     <style>
+        /* General Style Reset */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
         body::before {
@@ -22,10 +24,7 @@
             right: 0;
             bottom: 0;
             filter: blur(5px); 
-            background-image: url('https://www.insureon.com/-/media/blog/posts/2021/photo_group-of-employees-working-on-project.png?h=370&iar=0&w=750&rev=3faabd3c0f7c4e11966caaa037fa4fc8');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            background: linear-gradient(135deg, rgba(36, 198, 220, 0.8), rgba(81, 74, 157, 0.8)), url('https://www.insureon.com/-/media/blog/posts/2021/photo_group-of-employees-working-on-project.png?h=370&iar=0&w=750&rev=3faabd3c0f7c4e11966caaa037fa4fc8') no-repeat center center / cover;
             z-index: -1;
             height: 100vh;
         }
@@ -36,68 +35,87 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            background-color: rgba(0, 0, 0, 0.8);
         }
 
         .content {
             background-color: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            width: 80%;
-            max-width: 800px;
-            padding: 30px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
             border-radius: 20px;
+            width: 85%;
+            max-width: 900px;
+            padding: 40px 30px;
             color: white;
+            text-align: center;
         }
 
-        p.head {
-            font-size: 32px;
-            text-align: center;
+        .content h1 {
+            font-size: 36px;
+            font-weight: 600;
             margin-bottom: 20px;
-            font-weight: bold;
+            color: #FFFFFF;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .content p {
+            font-size: 16px;
+            margin-bottom: 25px;
+        }
+
+        .file {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 25px;
+            border: none;
+            margin-bottom: 20px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #FFFFFF;
         }
 
         textarea {
             width: 100%;
             padding: 15px;
-            border-radius: 10px;
+            border-radius: 15px;
             border: none;
             resize: none;
             outline: none;
-            font-size: 16px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
             margin-bottom: 20px;
+            font-size: 16px;
         }
 
-        .file, select {
-            width: 100%;
-            padding: 10px 20px;
+        select, .btn, .b {
+            padding: 12px 20px;
             border-radius: 35px;
             border: none;
             outline: none;
-            background-repeat: no-repeat;
-            background-position: right 20px center;
-            margin-bottom: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            background-color: #24C6DC;
+            color: #fff;
+            transition: all 0.3s ease;
         }
 
-        .file {
-            background-image: none;
+        .btn:hover, .b:hover {
+            background-color: #4B70DD;
         }
 
         select {
-            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Ic_arrow_drop_down_36px.svg/1200px-Ic_arrow_drop_down_36px.svg.png');
-        }
-
-        .btn, .bn, .b {
-            padding: 10px 30px;
-            background-color: rgb(205, 38, 66);
-            color: white;
-            border-radius: 35px;
-            cursor: pointer;
-            font-size: 16px;
+            width: 100%;
+            /* margin-bottom: 20px; */
+            background: rgba(255, 255, 255, 0.2);
+            color: rgb(54, 1, 247);
+            /* padding-right: 40px; */
         }
 
         .fl {
             display: flex;
             gap: 10px;
             justify-content: space-between;
+            margin-bottom: 20px;
         }
 
         .fl button {
@@ -108,15 +126,37 @@
             flex: 1;
         }
 
+        .b {
+            display: inline-flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .bn {
+            padding: 12px 30px;
+            background-color: #4B70DD;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 35px;
+            display: block;
+            margin: 20px auto 0;
+        }
+
+        .bn:hover {
+            background-color: #24C6DC;
+        }
+
+        h2.mssg {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
         /* Media queries for responsiveness */
         @media (max-width: 768px) {
             .content {
                 width: 90%;
                 padding: 20px;
-            }
-
-            p.head {
-                font-size: 28px;
             }
 
             .file, select {
@@ -126,10 +166,6 @@
             .fl {
                 flex-direction: column;
                 gap: 10px;
-            }
-
-            .fl select {
-                background-position: right 10px center;
             }
 
             textarea {
@@ -144,8 +180,8 @@
         }
 
         @media (max-width: 480px) {
-            p.head {
-                font-size: 24px;
+            h1 {
+                font-size: 28px;
             }
 
             textarea {
@@ -161,117 +197,86 @@
 </head>
 <body>
     <div class="content">
-        <p class="head">Text To Speech Converter</p>
+        <h1>Text Extraction, Translation, and Speech Converter</h1>
+        <p>Extract text from documents, translate it into different languages, and convert it into speech with a single click.</p>
         
-        <span style="font-size: 15px;">Select a file:</span>
+        <span style="font-size: 16px;">Select a file:</span>
         <input type="file" class="file"><br>
         <button class="btn">Extract</button>
         <h2 class="mssg"></h2>
 
-        <div style="display: flex; gap: 10%; flex-wrap: wrap;">
-            <div style="flex: 1;">
-                <textarea class="from-text" placeholder="Write anything here..." rows="10"></textarea>
-                <div class="fl">
-                    <select name="" id="from-select" class="select"></select>
+        <div style="display: flex;  gap: 20px;">
+            <div>
+                <textarea class="from-text" placeholder="Write something here..." cols="50" rows="10"></textarea>
+                <div style="display: flex; gap: 20px; flex-direction: column;">
+                    <select class="select"></select>
                     <button class="b">
-                        <span class="fas fa-play"> Listen</span>
-                        <span class="fas fa-copy"> Copy</span>
+                        <span class="fas fa-play" id="from"> Listen</span>
+                        <span class="fas fa-copy" id="from"> Copy</span>
                     </button>
                 </div>
             </div>
-            <div style="flex: 1;">
-                <textarea class="to-text" placeholder="Translation will appear here..." rows="10"></textarea>
-                <div class="fl">
-                    <select name="" id="to-select" class="select"></select>
+            
+            <div>
+                <textarea class="to-text" placeholder="Translated text will appear here..." cols="50" rows="10"></textarea>
+                <div style="display: flex; gap: 20px; flex-direction: column;">
+                    <select class="select"></select>
                     <button class="b">
-                        <span class="fas fa-play"> Listen</span>
-                        <span class="fas fa-copy"> Copy</span>
+                        <span class="fas fa-play" id="to"> Listen</span>
+                        <span class="fas fa-copy" id="to"> Copy</span>
                     </button>
                 </div>
             </div>
         </div>
-        <button class="bn" style="margin-top: 20px;">Translate</button>
+        <button class="bn">Translate</button>
     </div>
-
     <script>
         const fromText = document.querySelector(".from-text");
         const toText = document.querySelector(".to-text");
-        const selectTag = document.querySelectorAll("select");
-        const translateBtn = document.querySelector(".bn");
-        const vol = document.querySelectorAll(".b");
+        selectTag = document.querySelectorAll("select");
+        translatebtn = document.querySelector(".bn");
+        vol = document.querySelectorAll(".b");
 
         selectTag.forEach((tag, id) => {
             for (const country_code in countries) {
-                let selected = (id == 0 && country_code == "en-GB") ? "selected" : (id == 1 && country_code == "hi-IN") ? "selected" : "";
+                let selected = "";
+                if (id === 0 && country_code === "en-GB") {
+                    selected = "selected";
+                } else if (id === 1 && country_code === "hi-IN") {
+                    selected = "selected";
+                }
                 let option = `<option value="${country_code}"${selected}>${countries[country_code]}</option>`;
                 tag.insertAdjacentHTML("beforeend", option);
             }
         });
 
-        translateBtn.addEventListener("click", () => {
+        translatebtn.addEventListener("click", () => {
             let text = fromText.value;
-            let translateFrom = selectTag[0].value;
-            let translateTo = selectTag[1].value;
+            translateFrom = selectTag[0].value;
+            translateTo = selectTag[1].value;
             if (!text) return;
             toText.setAttribute("placeholder", "Translating...");
-            let apiUrl = `https://api.mymemory.translated.net/get?q=${text}&langpair=${translateFrom}|${translateTo}`;
-            fetch(apiUrl)
-                .then(res => res.json())
-                .then(data => {
-                    toText.value = data.responseData.translatedText;
-                    toText.setAttribute("placeholder", "Translation");
-                });
+            let apiurl = `https://api.mymemory.translated.net/get?q=${text}&langpair=${translateFrom}|${translateTo}`;
+            fetch(apiurl).then(res => res.json()).then(data => {
+                toText.value = data.responseData.translatedText;
+                toText.setAttribute("placeholder", "Translation");
+            });
         });
 
         vol.forEach(icon => {
             icon.addEventListener("click", ({target}) => {
+                let utter;
                 if (target.classList.contains("fa-copy")) {
-                    if (target.parentElement.textContent.includes("from")) {
-                        navigator.clipboard.writeText(fromText.value);
-                    } else {
-                        navigator.clipboard.writeText(toText.value);
-                    }
+                    navigator.clipboard.writeText(
+                        target.id === "from" ? fromText.value : toText.value
+                    );
                 } else {
-                    let utterance;
-                    if (target.parentElement.textContent.includes("from")) {
-                        utterance = new SpeechSynthesisUtterance(fromText.value);
-                        utterance.lang = selectTag[0].value;
-                    } else {
-                        utterance = new SpeechSynthesisUtterance(toText.value);
-                        utterance.lang = selectTag[1].value;
-                    }
-                    speechSynthesis.speak(utterance);
+                    let text = target.id === "from" ? fromText.value : toText.value;
+                    utter = new SpeechSynthesisUtterance(text);
+                    utter.lang = selectTag[target.id === "from" ? 0 : 1].value;
+                    speechSynthesis.speak(utter);
                 }
             });
         });
-
-        let api = "https://script.google.com/macros/s/AKfycbyPvqikftOmL4JDAg3MsCbEGL9RUHRElBUavskQkV8mLeEoe9bTF9LDuM78aHqJAQU8WQ/exec";
-        let mssg = document.querySelector(".mssg");
-        let file = document.querySelector(".file");
-        let btn = document.querySelector(".btn");
-
-        btn.addEventListener('click', () => {
-            mssg.innerHTML = `Loading...`;
-
-            let fr = new FileReader();
-            fr.readAsDataURL(file.files[0]);
-            fr.onload = () => {
-                let res = fr.result;
-                let b64 = res.split("base64,")[1];
-                fetch(api, {
-                    method: "POST",
-                    body: JSON.stringify({
-                        file: b64,
-                        type: file.files[0].type,
-                        name: file.files[0].name,
-                    })
-                }).then(res => res.text())
-                .then(data => {
-                    fromText.value = data;
-                    mssg.innerHTML = ``;
-                });
-            };
-        });
-    </script>
-</body>
+    </script></body>
 </html>
