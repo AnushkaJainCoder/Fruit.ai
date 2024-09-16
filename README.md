@@ -2,9 +2,19 @@
 # Fruit.ai
 
 For frontend:
+
+
+https://github.com/user-attachments/assets/e9bce5a3-a1b1-43ce-a574-a0f9c33336e3
+
+
 https://github.com/user-attachments/assets/7c8f6250-fef3-446c-ad30-fbe76f2c6928
 
 For backened:
+
+
+https://github.com/user-attachments/assets/52b66afe-6876-469f-9478-986faf59610f
+
+
 https://github.com/user-attachments/assets/9f768885-4eba-40de-b63c-fe4698f61f07
 
 
