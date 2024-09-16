@@ -1,6 +1,10 @@
 
 # Fruit.ai
 
+https://github.com/user-attachments/assets/7c8f6250-fef3-446c-ad30-fbe76f2c6928
+
+
+
 Fruit.ai is a platform that leverages artificial intelligence to analyze and provide insights on various types of fruit. It includes features such as ripeness estimation, nutritional information, and more. This README provides detailed instructions on setting up and running the project, understanding its structure, and the design decisions behind it.
 
 ## Table of Contents
